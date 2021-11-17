@@ -1,42 +1,30 @@
-import Navbar from 'react-bootstrap/Navbar';
+iimport Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
+import { Outlet } from "react-router";
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
-const Dashboard = ({ autorizado }) => {
+const Dashboard = () => {
 
-    const navigate = useNavigate();
-    /*
-    useEffect(()=>{
-        if(!autorizado){
-            navigate('/');
-        }
-    }, []);
-    */
+    let {signOut} = useContext(AuthContext);
+
 
     return (
         <>
-            {autorizado
-                ?
-                (
-                    <Navbar bg="dark" variant="dark">
-                        <Container>
-                            <Navbar.Brand href="#home">MisionTic</Navbar.Brand>
-                            <Nav className="me-auto">
-                                <Nav.Link href="/">Inicio</Nav.Link>
-                                <Nav.Link href="#features">Mi Primer Componente</Nav.Link>
-                                <Nav.Link href="#pricing">Calculadora</Nav.Link>
-                                <Link to="/">Salir</Link>
-                            </Nav>
-                        </Container>
-                    </Navbar>
-                )
-                :
-                <Navigate to="/"/>  
-            }
-
+            <Navbar bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Brand href="#home">MisionTic</Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link as={Link} to="/">Mi Primer Componente</Nav.Link>
+                        <Nav.Link as={Link} to="calculadora">Calculadora</Nav.Link>
+                        <Nav.Link onClick={signOut}>Salir</Nav.Link>
+                    </Nav>
+                </Container>
+            </Navbar>
+            
+            <Outlet/>
         </>
     )
 }

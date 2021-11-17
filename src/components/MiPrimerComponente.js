@@ -18,11 +18,11 @@ export default function MiPrimerComponente(){
     }
 
     return(
-        <>
+        <div>
             <h1>Componente con Hooks</h1>
             <h2>Subtitulo del componente</h2>
             <Button variant="primary" onClick={handlerClick}>Click</Button>
             <Button variant="success" onClick={handlerClick2}>Click2</Button>
-        </>
+        </div>
     );
 }

@@ -2,13 +2,17 @@ import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import logo from '../logo.svg';
+import AuthContext from '../context/AuthContext'
 
-const Login = ({hanleAuth}) => {
 
-    const [user, setUser] = useState(null);
-    const [password, setPassword] = useState(null);
+const Login = () => {
+    //Usar el context
+    const {handleAuth} = useContext(AuthContext);
+    //Usar el hook useState para los estados del componente
+    const [user, setUser] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleUser = (e)=>{
         setUser(e.target.value);
@@ -18,9 +22,10 @@ const Login = ({hanleAuth}) => {
         setPassword(e.target.value);
     }
 
-    const btnLogin = () => {
-        hanleAuth(user, password);
+    const handleLogin = ()=>{
+        handleAuth(user, password);
     }
+
 
     return (
         <>
@@ -42,7 +47,7 @@ const Login = ({hanleAuth}) => {
                             <FormControl value={password} name="password" onChange={handlePassword} type="password" aria-label="First name" />
                         </InputGroup>
                         {/*------Botón de iniciar sesión------*/}
-                        <Button variant="dark" onClick={btnLogin}>Iniciar Sesión</Button>
+                        <Button variant="dark" onClick={handleLogin}>Iniciar Sesión</Button>
                     </Card.Body>
                 </Card>
             </header>

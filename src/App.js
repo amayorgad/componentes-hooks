@@ -1,39 +1,23 @@
 import './App.css';
 //Import bootstrap components
 import 'bootstrap/dist/css/bootstrap.min.css';
-//Import components
-import Dashboard from './components/Dashboard';
-import Login from './components/Login';
-import { Route, Routes } from 'react-router';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react';
+import AuthContext from './context/AuthContext';
+import AuthRouter from './routers/AuthRouter';
+import UnauthRouter from './routers/UnauthRouter';
 
-const usuario = "admin";
-const password = "123456";
 
 function App() {
 
-  const [autorizado, setAutorizado] = useState(false);
-
-  let navigate = useNavigate();
-
-  const hanleAuth = (usu, pass) => {
-    if (usu === usuario && password === pass) {
-      setAutorizado(true);
-      navigate('/dashboard');
-    }
-  }
+  const {auth} = useContext(AuthContext);
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Login hanleAuth={hanleAuth} />}></Route>
-        <Route path="/dashboard" element={<Dashboard autorizado={autorizado} />}></Route>
-      </Routes>
+      
+      {auth? <AuthRouter/>: <UnauthRouter/>}
 
     </div>
   );
 }
 
 export default App;
-
